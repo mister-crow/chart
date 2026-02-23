@@ -1,0 +1,98 @@
+body {
+  --app-bg: #0b0f14;
+  --app-fg: rgba(255,255,255,0.86);
+  --muted-fg: rgba(255,255,255,0.7);
+  --panel-bg: #101620;
+  --panel-border: rgba(255,255,255,0.13);
+  --hud-bg: rgba(0,0,0,0.38);
+  --hud-fg: rgba(255,255,255,0.82);
+  --divider: rgba(255,255,255,0.14);
+  --input-bg: rgba(255,255,255,0.08);
+  --input-fg: rgba(255,255,255,0.92);
+  --input-border: rgba(255,255,255,0.28);
+}
+
+.chart-window {
+  position: relative;
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  background: var(--panel-bg);
+  overflow: hidden;
+  min-height: 420px;
+}
+
+.chart-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.chart-hud {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  z-index: 2;
+  color: var(--hud-fg);
+  font-size: 12px;
+  line-height: 1.3;
+  background: var(--hud-bg);
+  border-radius: 9px;
+  padding: 8px 10px;
+  user-select: none;
+}
+
+.chart-hud label {
+  margin-top: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chart-hud input {
+  margin: 0;
+}
+
+.chart-hud .action-restore-zoom {
+  margin-top: 6px;
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  color: var(--input-fg);
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-size: 12px;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.chart-hud .action-restore-zoom:hover {
+  filter: brightness(1.08);
+}
+
+.curve-toggle-list {
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid var(--divider);
+}
+
+.curve-toggle-title {
+  margin-bottom: 4px;
+  color: var(--muted-fg);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.chart-hud .curve-toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 3px;
+}
+
+@media (max-width: 980px) {
+  .chart-window {
+    min-height: 360px;
+  }
+}
