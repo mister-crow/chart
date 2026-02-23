@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CDF/PDF Plotter</title>
+  <link rel="stylesheet" href="./chart.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-copy">
+      <h1>CDF/PDF Plotter</h1>
+      <p>Two independent graph windows in one HTML file. Each window has separate pan, zoom, labels, hover, and number toggle.</p>
+    </div>
+    <label class="theme-control" for="theme-select">
+      Theme
+      <select id="theme-select">
+        <option value="dark" selected>Dark</option>
+        <option value="light">Light</option>
+        <option value="blueish">Blueish</option>
+        <option value="greenish">Greenish</option>
+      </select>
+    </label>
+  </header>
+
+  <main class="chart-grid">
+    <section id="chart-window-a" class="chart-window">
+      <canvas class="chart-canvas"></canvas>
+      <div class="chart-hud">
+        <div><b>Window A</b>: mixed PDF/CDF presets</div>
+        <div>wheel = zoom, drag = pan, hover = values</div>
+        <label><input class="toggle-grid-numbers" type="checkbox" checked /> Show grid numbers</label>
+        <label><input class="toggle-curve-labels" type="checkbox" checked /> Show curve names</label>
+      </div>
+    </section>
+
+    <section id="chart-window-b" class="chart-window">
+      <canvas class="chart-canvas"></canvas>
+      <div class="chart-hud">
+        <div><b>Window B</b>: PDF-focused custom set</div>
+        <div>wheel = zoom, drag = pan, hover = values</div>
+        <label><input class="toggle-grid-numbers" type="checkbox" checked /> Show grid numbers</label>
+        <label><input class="toggle-curve-labels" type="checkbox" checked /> Show curve names</label>
+      </div>
+    </section>
+  </main>
+
+  <script src="./chart.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
