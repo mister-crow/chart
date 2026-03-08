@@ -168,6 +168,22 @@ body[data-theme="greenish"] {
   margin: 0;
 }
 
+.chart-hud .action-restore-zoom {
+  margin-top: 6px;
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  color: var(--input-fg);
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-size: 12px;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.chart-hud .action-restore-zoom:hover {
+  filter: brightness(1.08);
+}
+
 .curve-toggle-list {
   margin-top: 8px;
   padding-top: 6px;

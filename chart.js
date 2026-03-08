@@ -143,6 +143,7 @@
     const toggleNumbersRow = toggleNumbers ? toggleNumbers.closest("label") : null;
     const toggleCurveLabels = container.querySelector(".toggle-curve-labels");
     const toggleCurveLabelsRow = toggleCurveLabels ? toggleCurveLabels.closest("label") : null;
+    const actionRestoreZoom = container.querySelector(".action-restore-zoom");
 
     const controlOptions = {
       ...DEFAULT_CONTROL_OPTIONS,
@@ -416,6 +417,14 @@
 
     function refreshCameraBounds() {
       cameraBounds = computeCameraBounds(getCurvesForBounds());
+      applyCameraBounds();
+    }
+
+    function restoreDefaultView() {
+      scale = Number.isFinite(options.scale) ? options.scale : 90;
+      hasPlacedCamera = false;
+      placeInitialCamera();
+      cameraBounds = computeCameraBounds(curves);
       applyCameraBounds();
     }
 
@@ -874,6 +883,12 @@
       requestRender();
     }
 
+    function onRestoreZoomClick() {
+      if (hoverInfo) hoverInfo = null;
+      restoreDefaultView();
+      requestRender();
+    }
+
     function setControlVisibility(next = {}) {
       if (typeof next.showGridNumbersControl === "boolean") {
         controlOptions.showGridNumbersControl = next.showGridNumbersControl;
@@ -947,6 +962,7 @@
     canvas.addEventListener("pointerleave", onPointerLeave);
     if (toggleNumbers) toggleNumbers.addEventListener("change", onToggleNumbersChange);
     if (toggleCurveLabels) toggleCurveLabels.addEventListener("change", onToggleCurveLabelsChange);
+    if (actionRestoreZoom) actionRestoreZoom.addEventListener("click", onRestoreZoomClick);
 
     resize();
 
@@ -974,6 +990,7 @@
         canvas.removeEventListener("pointerleave", onPointerLeave);
         if (toggleNumbers) toggleNumbers.removeEventListener("change", onToggleNumbersChange);
         if (toggleCurveLabels) toggleCurveLabels.removeEventListener("change", onToggleCurveLabelsChange);
+        if (actionRestoreZoom) actionRestoreZoom.removeEventListener("click", onRestoreZoomClick);
         for (const input of curveToggleInputs) {
           input.removeEventListener("change", onCurveToggleChange);
         }
