@@ -1,6 +1,5 @@
-# CDF/PDF Plotter SDK
-
-A vanilla JavaScript SDK for plotting PDF/CDF curves on canvas.
+# CDF/PDF Charting SDK
+JavaScript SDK for drawing CDF and PDF curves on canvas.
 
 ## Repository Layout
 
@@ -23,7 +22,7 @@ chart/
 Open `examples/example.html`, or serve the repo:
 
 ```bash
-cd /Users/aram/dev/git/chart
+cd ~/dev/git/chart
 python3 -m http.server 8000
 ```
 
@@ -36,14 +35,13 @@ For example-specific details, see `examples/README.md`.
 ### Globals exported by `sdk/chart.js`
 
 - `window.ChartSupportMode`
-- `window.ChartFunctions`
+- `window.ChartCommonDistributions`
 - `window.ChartDefaults`
 - `window.createDistributionChart(container, options)`
 
 ### Globals exported by `sdk/common-distributions.js`
 
 - `window.ChartCommonDistributions`
-- `window.ChartFunctions` (backward-compatible alias)
 
 ### `ChartSupportMode`
 
@@ -52,7 +50,7 @@ For example-specific details, see `examples/README.md`.
 - `NINF_B`: support `(-inf, b]`
 - `NINF_INF`: support `(-inf, +inf)`
 
-### `ChartFunctions`
+### `ChartCommonDistributions`
 
 - `normalPdf(mu, sigma) -> (x) => number`
 - `normalCdf(mu, sigma) -> (x) => number`
@@ -61,7 +59,7 @@ For example-specific details, see `examples/README.md`.
 - `expPdf(lambda) -> (x) => number`
 - `expCdf(lambda) -> (x) => number`
 
-`ChartFunctions` and `ChartCommonDistributions` point to the same function set when `common-distributions.js` is loaded.
+`ChartCommonDistributions` global variable points to the above function set when `common-distributions.js` is loaded.
 
 ### `createDistributionChart(container, options)`
 

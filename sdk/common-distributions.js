@@ -53,6 +53,4 @@
   });
 
   window.ChartCommonDistributions = commonDistributions;
-  // Backward-compatible alias used by existing example/app code.
-  window.ChartFunctions = commonDistributions;
 })();

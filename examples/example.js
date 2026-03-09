@@ -1,6 +1,6 @@
 (function initCharts() {
   const S = window.ChartSupportMode;
-  const F = window.ChartFunctions;
+  const F = window.ChartCommonDistributions;
   const palette = ["#7ee787", "#ff7b72", "#d2a8ff", "#ffa657", "#79c0ff", "#f2cc60", "#a5d6ff"];
   const themes = window.ChartThemes || {};
   const fallbackCanvasTheme = (window.ChartDefaults && window.ChartDefaults.theme) || {};
@@ -35,14 +35,48 @@
     return curves.map((curve, index) => ({ ...curve, color: curve.color || palette[index % palette.length] }));
   }
 
+  function erfApprox(x) {
+    const sign = x < 0 ? -1 : 1;
+    x = Math.abs(x);
+    const a1 = 0.254829592;
+    const a2 = -0.284496736;
+    const a3 = 1.421413741;
+    const a4 = -1.453152027;
+    const a5 = 1.061405429;
+    const p = 0.3275911;
+    const t = 1 / (1 + p * x);
+    const y = 1 - ((((a5 * t + a4) * t + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+    return sign * y;
+  }
+
+  function createCustomCdfCurve() {
+    return {
+      kind: "cdf",
+      mode: S.NINF_INF,
+      a: NaN,
+      b: NaN,
+      fn: (x) => 0.5 * (1 + erfApprox(x)),
+      label: "Custom CDF"
+    };
+  }
+
+  function createCustomPdfCurve() {
+    return {
+      kind: "pdf",
+      mode: S.NINF_INF,
+      a: NaN,
+      b: NaN,
+      fn: (x) => Math.exp(-x * x) / Math.sqrt(Math.PI),
+      label: "Custom PDF"
+    };
+  }
+
   function createMixedDemoCurves() {
     return withPalette([
       { kind: "cdf", mode: S.FINITE_AB, a: -2, b: 2, fn: F.uniformCdf(-2, 2), label: "Uniform CDF [-2,2]" },
-      { kind: "pdf", mode: S.FINITE_AB, a: -2, b: 2, fn: F.uniformPdf(-2, 2), label: "Uniform PDF [-2,2]" },
       { kind: "cdf", mode: S.A_INF, a: 0, b: NaN, fn: F.expCdf(1.2), label: "Exp(lambda=1.2) CDF [0,+inf)" },
-      { kind: "pdf", mode: S.A_INF, a: 0, b: NaN, fn: F.expPdf(1.2), label: "Exp(lambda=1.2) PDF [0,+inf)" },
       { kind: "cdf", mode: S.NINF_INF, a: NaN, b: NaN, fn: F.normalCdf(0, 1), label: "Normal(0,1) CDF" },
-      { kind: "pdf", mode: S.NINF_INF, a: NaN, b: NaN, fn: F.normalPdf(0, 1), label: "Normal(0,1) PDF" }
+      createCustomCdfCurve()
     ]);
   }
 
@@ -51,6 +85,7 @@
       { kind: "pdf", mode: S.FINITE_AB, a: -2, b: 2, fn: F.uniformPdf(-2, 2), label: "Uniform PDF [-2,2]" },
       { kind: "pdf", mode: S.A_INF, a: 0, b: NaN, fn: F.expPdf(1.2), label: "Exp(lambda=1.2) PDF [0,+inf)" },
       { kind: "pdf", mode: S.NINF_INF, a: NaN, b: NaN, fn: F.normalPdf(0, 1), label: "Normal(0,1) PDF" },
+      createCustomPdfCurve(),
       { kind: "pdf", mode: S.A_INF, a: 0, b: NaN, fn: F.expPdf(2.2), label: "Exp(lambda=2.2) PDF [0,+inf)", color: "#f97316" }
     ]);
   }
